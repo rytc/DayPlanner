@@ -6,3 +6,5 @@ Basic day planner that allows entering and saving time blocks. The day's tasks c
 
 ---
 
+<img src="https://github.com/rytc/DayPlanner/blob/main/thumbnail.png" alt="Day Planner image">
+
