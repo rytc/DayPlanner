@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Work Day Scheduler</title>
+  </head>
+
+  <body>
+    <header class="jumbotron">
+      <h1 class="display-3">Work Day Scheduler</h1>
+      <p class="lead">A simple calendar app for scheduling your work day</p>
+      <p id="currentDay" class="lead"></p>
+    </header>
+    <main class="container">
+      <!-- Timeblocks go here -->
+      <div class="container" id="blocks">
+      </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script>
+      let init = () => {
+        for(let i = 9; i < 18; i++) {
+          let hour = moment().hour(i);
+         
+          let timeblockElem = document.createElement('div'); //$('li');
+          timeblockElem.className = "row"; //addClass("list-group-item");
+
+          let timeElem = document.createElement("div");
+          timeElem.className = "col-2 hour";
+          timeElem.innerHTML = `<label for="todo">${moment(hour).format("h")}PM</label>`;
+          timeblockElem.append(timeElem);
+
+          if(!localStorage.todos) {
+            localStorage.todos = `["", "", "", "", "", "", "", "", "", ""]`;
+          }
+
+          let todos = JSON.parse(localStorage.todos);
+
+          let todoElem = document.createElement("div");
+          todoElem.className = "col-9";
+          todoElem.innerHTML = `<textarea id="todo" style="width: 100%">${todos[i - 9]}</textarea>`;
+          
+          if(moment(hour).isBefore) {
+            todoElem.className += " past";
+          } else if(momen(hour).isSame) {
+            todoElem.className += " present";
+          } else if(moment(hour).isAfter) {
+            todoElem.className += " after";
+          }
+
+          timeblockElem.append(todoElem);
+          
+          let saveCol = document.createElement("div");
+          saveCol.className = "col-1 saveBtn";
+
+          let saveElem = document.createElement("i");
+          saveElem.innerHTML = "Save";
+          saveCol.append(saveElem);
+          timeblockElem.append(saveCol);
+
+
+          $("#blocks").append(timeblockElem);
+          //document.getElementById("timeblocks").append(hour);
+        }
+      }
+      init();
+      
+    </script>
+  </body>
+</html>
