@@ -44,7 +44,12 @@
 
         for(let i = 9; i < 18; i++) {
           let hour = moment().hour(i);
-         
+          hour.minute(0);
+          hour.seconds(0);
+          console.log(hour);
+          let current = moment();
+          current.minute(0);
+          current.seconds(0);
           let timeblockElem = document.createElement('div');
           timeblockElem.className = "row";
 
@@ -64,12 +69,12 @@
           todoElem.id = `todo-text-${i-9}`;
           todoElem.innerHTML = `${todos[i - 9]}`;
           
-          if(moment(hour).isBefore) {
+          if(moment(hour).isBefore(current)) {
             todoElem.className += " past";
-          } else if(momen(hour).isSame) {
+          } else if(moment(hour).isSameOrBefore(current)) {
             todoElem.className += " present";
-          } else if(moment(hour).isAfter) {
-            todoElem.className += " after";
+          } else if(moment(hour).isAfter(current)) {
+            todoElem.className += " future";
           }
 
           timeblockElem.append(todoElem);
