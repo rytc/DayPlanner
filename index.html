@@ -41,8 +41,8 @@
         for(let i = 9; i < 18; i++) {
           let hour = moment().hour(i);
          
-          let timeblockElem = document.createElement('div'); //$('li');
-          timeblockElem.className = "row"; //addClass("list-group-item");
+          let timeblockElem = document.createElement('div');
+          timeblockElem.className = "row";
           timeblockElem.dataset.index = i - 9;
 
           let timeElem = document.createElement("div");
