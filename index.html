@@ -30,14 +30,18 @@
     </header>
     <main class="container">
       <!-- Timeblocks go here -->
+      <p id="current_date"></p>
       <div class="container" id="blocks">
       </div>
+      <button class="m-4 btn btn-danger" id="clear_todos">Clear todos</button>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
       let init = () => {
+          document.getElementById("current_date").innerText = moment().format("dddd, MMMM, DD YYYY")
+
         for(let i = 9; i < 18; i++) {
           let hour = moment().hour(i);
          
@@ -90,6 +94,13 @@
         }
       }
       init();
+
+      document.getElementById("clear_todos").addEventListener("click", () => {
+        localStorage.todos = `["", "", "", "", "", "", "", "", "", ""]`;
+        for(let i = 0; i < 9; i++) {
+          document.getElementById("todo-text-"+i).value = "";
+        }
+      });
       
     </script>
   </body>
