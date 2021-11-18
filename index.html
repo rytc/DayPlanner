@@ -43,9 +43,10 @@
          
           let timeblockElem = document.createElement('div'); //$('li');
           timeblockElem.className = "row"; //addClass("list-group-item");
+          timeblockElem.dataset.index = i - 9;
 
           let timeElem = document.createElement("div");
-          timeElem.className = "col-2 hour";
+          timeElem.className = "col-1 hour";
           timeElem.innerHTML = `<label for="todo">${moment(hour).format("h")}PM</label>`;
           timeblockElem.append(timeElem);
 
@@ -55,9 +56,10 @@
 
           let todos = JSON.parse(localStorage.todos);
 
-          let todoElem = document.createElement("div");
-          todoElem.className = "col-9";
-          todoElem.innerHTML = `<textarea id="todo" style="width: 100%">${todos[i - 9]}</textarea>`;
+          let todoElem = document.createElement("textarea");
+          todoElem.className = "col-10";
+          todoElem.id = `todo-text-${i-9}`;
+          todoElem.innerHTML = `${todos[i - 9]}`;
           
           if(moment(hour).isBefore) {
             todoElem.className += " past";
@@ -75,6 +77,13 @@
           let saveElem = document.createElement("i");
           saveElem.innerHTML = "Save";
           saveCol.append(saveElem);
+          saveElem.addEventListener("click", (event) => {
+            let todos = JSON.parse(localStorage.todos);
+            let index = event.target.parentNode.parentNode.dataset.index;
+            let text = document.getElementById("todo-text-"+index).value;
+            todos[index] = text;
+            localStorage.todos = JSON.stringify(todos);
+          });
           timeblockElem.append(saveCol);
 
 
