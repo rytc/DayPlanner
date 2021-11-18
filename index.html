@@ -43,7 +43,6 @@
          
           let timeblockElem = document.createElement('div');
           timeblockElem.className = "row";
-          timeblockElem.dataset.index = i - 9;
 
           let timeElem = document.createElement("div");
           timeElem.className = "col-1 hour";
@@ -76,19 +75,18 @@
 
           let saveElem = document.createElement("i");
           saveElem.innerHTML = "Save";
+          saveElem.dataset.index = i - 9;
           saveCol.append(saveElem);
           saveElem.addEventListener("click", (event) => {
             let todos = JSON.parse(localStorage.todos);
-            let index = event.target.parentNode.parentNode.dataset.index;
+            let index = event.target.dataset.index;
             let text = document.getElementById("todo-text-"+index).value;
             todos[index] = text;
             localStorage.todos = JSON.stringify(todos);
           });
           timeblockElem.append(saveCol);
 
-
           $("#blocks").append(timeblockElem);
-          //document.getElementById("timeblocks").append(hour);
         }
       }
       init();
